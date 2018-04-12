@@ -1,0 +1,24 @@
+<p>Home</p>
+<agm-map class="google-map"
+         [mapTypeId]="'roadmap'"
+         [latitude]="centerLat"
+         [longitude]="centerLng"
+         [minZoom]="13"
+>
+    <div *ngFor="let event of events">
+        <agm-marker
+                [latitude]="event.latitude"
+                [longitude]="event.longitude"
+                [iconUrl]="{
+                    url:'assets/images/happyMarker.png',
+                    scaledSize: {
+                        height: 20,
+                        width: 20
+                    }
+                }"
+                [title]="event.title"
+        >
+
+        </agm-marker>
+    </div>
+</agm-map>
