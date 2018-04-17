@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-event-detail',
@@ -11,6 +11,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class EventDetailComponent implements OnInit {
     @Input() event: any;
+    @Output() close: EventEmitter<any> = new EventEmitter();
+    comment: string;
 
     constructor() {
 
@@ -18,6 +20,12 @@ export class EventDetailComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    clickClose() {
+        // this.mapClicked = false;
+        console.log('Click Close');
+        this.close.emit(null);
     }
 
 }

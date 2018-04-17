@@ -6,7 +6,7 @@ export class Event {
     latitude: number;
     longitude: number;
     title: string;
-    writer_id: string;
+    created_by: string;
     writer_name: string;
     mood: string;
     content: string;

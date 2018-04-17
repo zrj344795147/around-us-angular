@@ -1,2 +1,15 @@
-<p>{{event.title}}</p>
-<p>{{event.content}}</p>
+<p>Title: {{event.title}}</p>
+<p>Content: {{event.content}}</p>
+<p>Writer: {{event.writer_name}}</p>
+<div>
+    <div *ngFor="let comment of event.comments">
+        <ul>
+           <li>{{comment.content}}</li>
+            <li>{{comment.writer_name}}</li>
+            <li>{{comment.created_at}}</li>
+        </ul>
+    </div>
+    <input id="comment"  [(ngModel)]="comment" placeholder="Make your comment"  type="text">
+    <button>Comment</button>
+    <button (click)="clickClose()">Close</button>
+</div>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // Services
 import { EventsService } from '../../services/events.service';
+// Components
+import { EventDetailComponent } from '../EventDetail/event-detail.component';
+import { EventPostComponent } from '../EventPost/event-post.component';
 
 
 
@@ -11,7 +14,8 @@ import { EventsService } from '../../services/events.service';
     styleUrls: [
         '../../../assets/css/style.css',
         '../../../assets/css/bootstrap.css'
-    ]
+    ],
+    // directives: [EventDetailComponent, EventPostComponent]
 })
 
 export class HomeComponent implements OnInit {
@@ -19,7 +23,7 @@ export class HomeComponent implements OnInit {
     centerLng: number = -73.99733200000003;
     events: any;
     currentEvent: any;
-    eventPost: boolean;
+    mapClicked: boolean;
     clickedLat: number;
     clickedLng: number;
 
@@ -28,7 +32,7 @@ export class HomeComponent implements OnInit {
     ) {
         this.events = [];
         this.currentEvent = null;
-        this.eventPost = false;
+        this.mapClicked = false;
     }
 
     ngOnInit() {
@@ -42,6 +46,9 @@ export class HomeComponent implements OnInit {
     }
 
     clickMarker(eventId) {
+        // Close EventPost
+        this.mapClicked = false;
+
         this.eventsService.getEvent(eventId)
             .then(event => {
                 console.log(event);
@@ -53,12 +60,21 @@ export class HomeComponent implements OnInit {
     }
 
     clickMap($event) {
-        this.eventPost = true;
+        // Close EventDetail
+        this.currentEvent = null;
         this.clickedLat = $event.coords.lat;
         this.clickedLng = $event.coords.lng;
+        this.mapClicked = true;
     }
 
-    closeEventPost() {
-        this.eventPost = false;
+    clickCloseEventPost() {
+        this.mapClicked = false;
     }
+
+    clickCloseEventDetail() {
+        this.currentEvent = null;
+    }
+
+
+
 }

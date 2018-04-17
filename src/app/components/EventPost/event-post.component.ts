@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'app-event-post',
@@ -10,11 +10,14 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 
 export class EventPostComponent implements OnInit {
+    @Input() mapClicked: boolean;
     @Input() latitude: number;
     @Input() longitude: number;
+    @Output() close: EventEmitter<any> = new EventEmitter();
     title: string;
     content: string;
     mood: string;
+
 
     constructor() {
         this.title = '';
@@ -24,6 +27,12 @@ export class EventPostComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    clickClose() {
+        // this.mapClicked = false;
+        console.log('Click Close');
+        this.close.emit(null);
     }
 
 }

@@ -5,6 +5,7 @@
          [longitude]="centerLng"
          [minZoom]="13"
          (mapClick)="clickMap($event)"
+         [clickableIcons]="false"
 >
     <div *ngFor="let event of events">
         <div *ngIf="event.mood == 'happy'">
@@ -19,6 +20,7 @@
                     }
                 }"
                 [title]="event.title"
+                (markerClick)= "clickMarker(event.id)"
             ></agm-marker>
         </div>
         <div *ngIf="event.mood == 'sad'">
@@ -37,13 +39,21 @@
             ></agm-marker>
         </div>
     </div>
+    <!--Clicked Marker-->
+    <div *ngIf="mapClicked">
+        <agm-marker
+                [latitude]="clickedLat"
+                [longitude]="clickedLng"
+                [title]="'Your Spot'"
+        ></agm-marker>
+    </div>
+
 </agm-map>
 
 <div *ngIf="currentEvent">
-    <app-event-detail [event]="currentEvent"></app-event-detail>
+    <app-event-detail [event]="currentEvent" (close)="clickCloseEventDetail()"></app-event-detail>
 </div>
 
-<div *ngIf="eventPost">
-    <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"></app-event-post>
-    <button (click)="closeEventPost()">Close</button>
+<div *ngIf="mapClicked">
+    <app-event-post [latitude]="clickedLat" [longitude]="clickedLng" [mapClicked]="mapClicked" (close)="clickCloseEventPost()"></app-event-post>
 </div>
