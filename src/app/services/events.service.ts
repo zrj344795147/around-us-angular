@@ -51,6 +51,7 @@ export class EventsService {
                     event_id: '1',
                     content: 'hhhhh',
                     created_id: '10086',
+                    writer_id: '1',
                     writer_name: 'Passer-By',
                     created_at: '2018-4-12 16:51:11',
                 }, {

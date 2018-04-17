@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
     mapClicked: boolean;
     clickedLat: number;
     clickedLng: number;
+    clickedLocation: string;
 
     constructor(
         private eventsService: EventsService,
