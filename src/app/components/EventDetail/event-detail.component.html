@@ -7,20 +7,20 @@
     <div class="eventDetail-writer">{{event.writer_name}}</div>
     <div class="eventDetail-time">{{event.write_time}}</div>
     <div class="eventDetail-content">{{event.content}}</div>
-
-    <div class="eventDetail-img"></div>
+    <!--<div class="eventDetail-img"></div>-->
     <div class="eventDetail-comments">
         <div class="eventDetail-comments-title">Comments</div>
         <ul class="comments-display">
             <li *ngFor="let comment of event.comments">
+
+                <span class="eventDetail-comments-writer">{{comment.writer_name}}</span>
+                <span class="eventDetail-comments-time">{{comment.write_time}}</span>
                 <div class="eventDetail-comments-content">{{comment.content}}</div>
-                <div class="eventDetail-comments-writer">{{comment.writer_name}}</div>
-                <div class="eventDetail-comments-time">{{comment.write_time}}</div>
             </li>
         </ul>
-        <div class="input-comment">
-            <input  [(ngModel)]="comment" placeholder="Make your comment"  type="text">
-            <button class="btn btn-primary btn-comment">Submit</button>
+        <div class="make-comment">
+            <input class="form-control  input-comment " [(ngModel)]="comment" placeholder="Add a comment..."  type="text">
+            <button class="btn btn-primary btn-submit">Submit</button>
             <!--<button class="btn btn-primary" (click)="clickClose()">Close</button>-->
         </div>
 

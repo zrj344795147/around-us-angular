@@ -86,6 +86,7 @@ export class HomeComponent implements OnInit {
         this.clickedLat = $event.coords.lat;
         this.clickedLng = $event.coords.lng;
         this.mapClicked = true;
+        console.log('lat: ' + this.clickedLat + ' lng: ' + this.clickedLng);
         // fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.clickedLat + ',' + this.clickedLng +
         //     '&key=AIzaSyA895-jWHSZUww1OaXBJeb6xSXveFSBulg')
         //     .then(data => {

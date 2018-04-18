@@ -49,7 +49,8 @@ export class EventsService {
                 comments: [{
                     id: '1',
                     event_id: '1',
-                    content: 'hhhhh',
+                    content: 'Da Conner iza liah .u didn\'t go 3 for 3 you lost the third game and won your fourth.\n' +
+                    'Clickbaiting youtubers these days﻿',
                     created_id: '10086',
                     writer_id: '1',
                     writer_name: 'Passer-By',
@@ -57,7 +58,7 @@ export class EventsService {
                 }, {
                     id: '2',
                     event_id: '1',
-                    content: '233333',
+                    content: 'Lol, you call it a God Building. My friend discovered those a long time before they got super popular and we just refer to all of them as his buildings.﻿',
                     created_id: '10000',
                     writer_name: 'NoName',
                     write_time: '2018-4-12 16:55:13',
