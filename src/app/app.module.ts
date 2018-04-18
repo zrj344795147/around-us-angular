@@ -26,7 +26,8 @@ import { EventsService } from './services/events.service';
         FormsModule,
         HttpClientModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyA895-jWHSZUww1OaXBJeb6xSXveFSBulg'
+            apiKey: 'AIzaSyA895-jWHSZUww1OaXBJeb6xSXveFSBulg',
+            language: 'en-US'
         })
     ],
     providers: [

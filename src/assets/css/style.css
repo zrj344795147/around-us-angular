@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 .home {
     height: 100vh;
 }
@@ -89,8 +94,9 @@ agm-marker:hover {
     display: inline-block;
     margin-right: 10px;
     font-size: 30px !important;
-    color: #dedede !important;
+    color: #ededed !important;
     opacity: 1 !important;
+    text-shadow:none !important;
 }
 
 .close-btn:hover {
@@ -140,7 +146,12 @@ agm-marker:hover {
 .eventDetail-comments {
 
 }
-
+.comments-display {
+    padding: 5px 0 5px 0
+}
+.comments-display li {
+    padding: 5px 15px 15px 30px
+}
 .eventDetail-comments-title {
     padding:10px 15px 10px 15px;
     color: #2196f3;
@@ -148,6 +159,16 @@ agm-marker:hover {
     font-weight: bold;
 }
 
+.eventDetail-comments-content {
+
+}
+
+.eventDetail-comments-writer {
+
+}
+.eventDetail-comments-time {
+
+}
 .btn-comment {
     background-color: #2196f3 !important;
 }
