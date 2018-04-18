@@ -10,11 +10,21 @@
     background-color: #03A9F4;
     color: #ffffff;
     padding-left: 2%;
+    padding-right: 2%;
     height: 8%;
     font-size:200%;
-    margin-top: auto;
-    margin-bottom: auto;
-    vertical-align:middle
+
+}
+.home-header-title {
+    float:left;
+    height: 100%;
+    font-size: 4vh;
+}
+.home-header-title:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }
 .home-main {
     width: 100%;
@@ -50,6 +60,26 @@ agm-marker:hover {
     left: 2%;
     top: 2%;
 }
-@media only screen and (min-width: 300px) {
+@media only screen and (max-width: 375px) {
+    .currentEvent {
+        float: left;
+        width: 80%;
+        background-color:rgba(3, 169, 244, 0.8);
+        padding: 15px;
+        position: absolute;
+        height: 96%;
+        left: 10%;
+        top: 2%;
+    }
 
+    .postEvent {
+        float: left;
+        width: 80%;
+        background-color:rgba(3, 169, 244, 0.8);
+        padding: 15px;
+        position: absolute;
+        height: 96%;
+        left: 10%;
+        top: 2%;
+    }
 }

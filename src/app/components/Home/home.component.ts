@@ -66,6 +66,16 @@ export class HomeComponent implements OnInit {
         this.clickedLat = $event.coords.lat;
         this.clickedLng = $event.coords.lng;
         this.mapClicked = true;
+        // fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.clickedLat + ',' + this.clickedLng +
+        //     '&key=AIzaSyA895-jWHSZUww1OaXBJeb6xSXveFSBulg')
+        //     .then(data => {
+        //         console.log(data);
+        //         this.clickedLocation = data.results.formatted_address;
+        //     })
+        //     .catch(err => {
+        //        console.log(err);
+        //        this.clickedLocation = 'Lat: ' + this.clickedLat + ' Lng: ' + this.clickedLng;
+        //     });
     }
 
     clickCloseEventPost() {
