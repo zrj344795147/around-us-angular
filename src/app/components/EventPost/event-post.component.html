@@ -1,9 +1,11 @@
-<p>Even Post</p>
-<div>
-    <div>latitude: {{latitude}}</div>
-    <div>longitude: {{longitude}}</div>
-    <input id="title"  [(ngModel)]="title" placeholder="Title"  type="text">
-    <input id="content"  [(ngModel)]="content" placeholder="Story"  type="text">
-    <button>Send</button>
-    <button (click)="clickClose()">Close</button>
+<div class="postEvent">
+    <p>Even Post</p>
+    <div>
+        <div>latitude: {{latitude}}</div>
+        <div>longitude: {{longitude}}</div>
+        <input id="title"  [(ngModel)]="title" placeholder="Title"  type="text">
+        <input id="content"  [(ngModel)]="content" placeholder="Story"  type="text">
+        <button>Send</button>
+        <button (click)="clickClose()">Close</button>
+    </div>
 </div>

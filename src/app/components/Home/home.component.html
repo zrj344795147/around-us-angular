@@ -1,6 +1,6 @@
 <div class="home">
     <div class="home-header">
-        <div class="home-header-title">AroundUs</div>
+        <div class="home-header-title">Around Us</div>
     </div>
     <div class="home-main">
         <agm-map class="google-map"
@@ -10,6 +10,7 @@
                  [minZoom]="13"
                  (mapClick)="clickMap($event)"
                  [clickableIcons]="false"
+                 [styles]="mapStyle"
         >
             <div *ngFor="let event of events">
                 <div *ngIf="event.mood == 'happy'">
@@ -19,8 +20,8 @@
                             [iconUrl]="{
                     url:'assets/images/happyMarker.png',
                     scaledSize: {
-                        height: 20,
-                        width: 20
+                        height: 30,
+                        width: 30
                     }
                 }"
                             [title]="event.title"
@@ -34,8 +35,8 @@
                             [iconUrl]="{
                     url:'assets/images/sadMarker.png',
                     scaledSize: {
-                        height: 20,
-                        width: 20
+                        height: 30,
+                        width: 30
                     }
                 }"
                             [title]="event.title"
@@ -54,11 +55,11 @@
 
         </agm-map>
 
-        <div *ngIf="currentEvent" class="currentEvent">
+        <div *ngIf="currentEvent">
             <app-event-detail [event]="currentEvent" (close)="clickCloseEventDetail()"></app-event-detail>
         </div>
 
-        <div *ngIf="mapClicked" class="postEvent">
+        <div *ngIf="mapClicked">
             <app-event-post [latitude]="clickedLat" [longitude]="clickedLng" [mapClicked]="mapClicked" (close)="clickCloseEventPost()"></app-event-post>
         </div>
     </div>

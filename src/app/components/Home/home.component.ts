@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     clickedLat: number;
     clickedLng: number;
     clickedLocation: string;
+    mapStyle: any;
 
     constructor(
         private eventsService: EventsService,
@@ -34,6 +35,25 @@ export class HomeComponent implements OnInit {
         this.events = [];
         this.currentEvent = null;
         this.mapClicked = false;
+        this.mapStyle =  [
+            {
+                elementType: 'geometry',
+                stylers: [
+                    // {
+                    //     hue: '#28f38b'
+                    // },
+                    // {
+                    //     saturation: 15
+                    // },
+                    {
+                        lightness: 80
+                    },
+                    {
+                        gamma: 0.5
+                    }
+                ]
+            },
+        ];
     }
 
     ngOnInit() {

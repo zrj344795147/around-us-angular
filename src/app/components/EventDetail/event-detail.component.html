@@ -1,15 +1,28 @@
-<p>Title: {{event.title}}</p>
-<p>Content: {{event.content}}</p>
-<p>Writer: {{event.writer_name}}</p>
-<div>
-    <div *ngFor="let comment of event.comments">
-        <ul>
-           <li>{{comment.content}}</li>
-            <li>{{comment.writer_name}}</li>
-            <li>{{comment.created_at}}</li>
-        </ul>
+<div class="currentEvent">
+    <!--<div class="close-line" >-->
+    <button class="close close-btn" aria-label="Close" (click)="clickClose()">&times;</button>
+    <!--</div>-->
+
+    <div class="eventDetail-title">{{event.title}}</div>
+    <div class="eventDetail-writer">{{event.writer_name}}</div>
+    <div class="eventDetail-time">{{event.write_time}}</div>
+    <div class="eventDetail-content">{{event.content}}</div>
+
+    <div class="eventDetail-img"></div>
+    <div class="eventDetail-comments">
+        <div class="eventDetail-comments-title">Comments</div>
+        <div *ngFor="let comment of event.comments">
+            <ul>
+                <li>{{comment.content}}</li>
+                <li>{{comment.writer_name}}</li>
+                <li>{{comment.write_time}}</li>
+            </ul>
+        </div>
+        <div class="input-comment">
+            <input  [(ngModel)]="comment" placeholder="Make your comment"  type="text">
+            <button class="btn btn-primary btn-comment">Submit</button>
+            <!--<button class="btn btn-primary" (click)="clickClose()">Close</button>-->
+        </div>
+
     </div>
-    <input id="comment"  [(ngModel)]="comment" placeholder="Make your comment"  type="text">
-    <button>Comment</button>
-    <button (click)="clickClose()">Close</button>
 </div>
