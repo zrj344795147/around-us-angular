@@ -3,31 +3,64 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class EventsService {
-    constructor(http: HttpClient) {
+    constructor(private http: HttpClient) {
+    }
+
+    getLocation(lat: number, lng: number) {
+        return new Promise((resolve, reject) => {
+            console.log('getLocation: ' + lat + ' ' + lng);
+            const API_KEY = 'AIzaSyA895-jWHSZUww1OaXBJeb6xSXveFSBulg';
+            const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + String(lat) + ',' + String(lng) + '&key=' + API_KEY;
+            this.http.get(url).toPromise()
+                .then(res => {
+                    console.log(res);
+                    resolve(res['results'][0]['formatted_address']);
+                })
+                .catch(err => {
+                    console.log(err);
+                    reject(err);
+                });
+        });
     }
 
     getEvents(centerLat, centerLng) {
         return new Promise((resolve, reject) => {
-            let events = [{
-                id: '1',
-                latitude: 40.735,
-                longitude: -73.999,
-                mood: 'happy',
-                title: 'title1'
-            }, {
-                id: '2',
-                latitude: 40.722,
-                longitude: -73.987,
-                mood: 'sad',
-                title: 'title2'
-            },
-            {
-                id: '3',
-                latitude: 40.727,
-                longitude: -73.988,
-                mood: 'sad',
-                title: 'title3'
-            }
+            let events = [
+                {
+                    id: '1',
+                    latitude: 40.735,
+                    longitude: -73.999,
+                    mood: 'happy',
+                    title: 'title1'
+                },
+                {
+                    id: '2',
+                    latitude: 40.722,
+                    longitude: -73.987,
+                    mood: 'sad',
+                    title: 'title2'
+                },
+                {
+                    id: '3',
+                    latitude: 40.727,
+                    longitude: -73.988,
+                    mood: 'angry',
+                    title: 'title3'
+                },
+                {
+                    id: '4',
+                    latitude: 40.75,
+                    longitude: -74.000,
+                    mood: 'love',
+                    title: 'title3'
+                },
+                {
+                    id: '5',
+                    latitude: 40.74,
+                    longitude: -73.950,
+                    mood: 'heartbroken',
+                    title: 'title3'
+                },
             ];
 
             resolve(events);

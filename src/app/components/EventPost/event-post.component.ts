@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+// Services
+import { EventsService } from '../../services/events.service';
 
 @Component({
     selector: 'app-event-post',
@@ -10,23 +12,27 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 
 export class EventPostComponent implements OnInit {
-    @Input() mapClicked: boolean;
+    // @Input() mapClicked: boolean;
     @Input() latitude: number;
     @Input() longitude: number;
+    @Input() location: string;
     @Output() close: EventEmitter<any> = new EventEmitter();
     title: string;
     content: string;
     mood: string;
+    moodOptions: [string];
 
 
-    constructor() {
+    constructor( private eventsService: EventsService) {
+        this.moodOptions = ['Happy', 'Sad', 'Angry', 'Love', 'Heartbroken'];
         this.title = '';
         this.content = '';
-        this.mood = '';
+        this.mood = 'happy';
+
+
     }
 
     ngOnInit() {
-
     }
 
     clickClose() {

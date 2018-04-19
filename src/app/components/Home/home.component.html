@@ -1,7 +1,12 @@
 <div class="home">
     <div class="home-header">
-        <div class="home-header-title">Around Us</div>
-        <div class="btn btn-secondary btn-logout">Logout</div>
+        <div class="home-header-left">
+            <div class="home-header-title">Around Us</div>
+        </div>
+        <div class="home-header-right">
+            <div class="btn btn-secondary btn-logout">Logout</div>
+        </div>
+
     </div>
     <div class="home-main">
         <agm-map class="google-map"
@@ -44,6 +49,51 @@
                             (markerClick)= "clickMarker(event.id)"
                     ></agm-marker>
                 </div>
+                <div *ngIf="event.mood == 'angry'">
+                    <agm-marker
+                            [latitude]="event.latitude"
+                            [longitude]="event.longitude"
+                            [iconUrl]="{
+                    url:'assets/images/angryMarker.png',
+                    scaledSize: {
+                        height: 30,
+                        width: 30
+                    }
+                }"
+                            [title]="event.title"
+                            (markerClick)= "clickMarker(event.id)"
+                    ></agm-marker>
+                </div>
+                <div *ngIf="event.mood == 'love'">
+                    <agm-marker
+                            [latitude]="event.latitude"
+                            [longitude]="event.longitude"
+                            [iconUrl]="{
+                    url:'assets/images/loveMarker.png',
+                    scaledSize: {
+                        height: 30,
+                        width: 30
+                    }
+                }"
+                            [title]="event.title"
+                            (markerClick)= "clickMarker(event.id)"
+                    ></agm-marker>
+                </div>
+                <div *ngIf="event.mood == 'heartbroken'">
+                    <agm-marker
+                            [latitude]="event.latitude"
+                            [longitude]="event.longitude"
+                            [iconUrl]="{
+                    url:'assets/images/heartbrokenMarker.png',
+                    scaledSize: {
+                        height: 30,
+                        width: 30
+                    }
+                }"
+                            [title]="event.title"
+                            (markerClick)= "clickMarker(event.id)"
+                    ></agm-marker>
+                </div>
             </div>
             <!--Clicked Marker-->
             <div *ngIf="mapClicked">
@@ -61,7 +111,7 @@
         </div>
 
         <div *ngIf="mapClicked">
-            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng" [mapClicked]="mapClicked" (close)="clickCloseEventPost()"></app-event-post>
+            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()"></app-event-post>
         </div>
     </div>
 </div>

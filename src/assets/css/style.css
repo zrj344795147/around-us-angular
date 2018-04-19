@@ -26,15 +26,27 @@ ul {
 }
 
 .home-header {
+    min-height:30px;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
     background-color: #2196f3;
     color: #ffffff;
     padding-left: 2%;
     padding-right: 2%;
-    height: 8%;
+    height: 10%;
     font-size:200%;
+    justify-content: space-between;
 }
+.home-header-left {
+
+}
+
+.home-header-right {
+
+}
+
 .home-header-title {
-    float:left;
     height: 100%;
     font-size: 3.5vh;
 
@@ -47,12 +59,12 @@ ul {
 }
 
 .btn-logout {
-    float:right;
+
 }
 
 .home-main {
     width: 100%;
-    height: 92%;
+    height: 90%;
     position: relative;
 }
 .google-map {
@@ -83,7 +95,7 @@ agm-marker:hover {
     width: 400px;
     background-color: rgb(255, 255, 255);
     position: absolute;
-    max-height: 96%;
+    height: 96%;
     left: 2%;
     top: 2%;
     /*shadow*/
@@ -115,7 +127,7 @@ agm-marker:hover {
         width: 80%;
         background-color:rgb(255, 255, 255);
         position: absolute;
-        max-height: 96%;
+        height: 96%;
         left: 10%;
         top: 2%;
         /*shadow*/
@@ -225,7 +237,7 @@ agm-marker:hover {
 
 .input-comment {
     margin-bottom:15px;
-    max-height: none;
+    /*max-height: none;*/
 }
 
 .btn-submit {
@@ -256,10 +268,14 @@ agm-marker:hover {
     color: #ffffff;
     font-family: Roboto, Arial, sans-serif;
 }
+.select-mood {
+    /*width: auto !important;*/
+}
 .input-info {
     padding:5px 0 10px 0 ;
 }
 
 .input-textarea {
     margin-bottom:15px;
+    resize: none;
 }

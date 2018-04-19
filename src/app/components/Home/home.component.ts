@@ -87,16 +87,14 @@ export class HomeComponent implements OnInit {
         this.clickedLng = $event.coords.lng;
         this.mapClicked = true;
         console.log('lat: ' + this.clickedLat + ' lng: ' + this.clickedLng);
-        // fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.clickedLat + ',' + this.clickedLng +
-        //     '&key=AIzaSyA895-jWHSZUww1OaXBJeb6xSXveFSBulg')
-        //     .then(data => {
-        //         console.log(data);
-        //         this.clickedLocation = data.results.formatted_address;
-        //     })
-        //     .catch(err => {
-        //        console.log(err);
-        //        this.clickedLocation = 'Lat: ' + this.clickedLat + ' Lng: ' + this.clickedLng;
-        //     });
+        this.eventsService.getLocation(this.clickedLat, this.clickedLng)
+            .then(res => {
+                this.clickedLocation = res.toString();
+            })
+            .catch(err => {
+                console.log(err);
+                this.clickedLocation = 'Unknown Location';
+            });
     }
 
     clickCloseEventPost() {

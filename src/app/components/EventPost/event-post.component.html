@@ -1,13 +1,19 @@
 <div class="postEvent">
     <button class="close close-btn" aria-label="Close" (click)="clickClose()">&times;</button>
     <div class="postEvent-title">Even Post</div>
-    <div class="postEvent-location">latitude: {{latitude}}, longitude: {{longitude}}</div>
+    <!--<div class="postEvent-location">latitude: {{latitude}}, longitude: {{longitude}}</div>-->
+    <div class="postEvent-location">{{location}}</div>
     <div class="postEvent-form">
+        <div class="input-info">Mood</div>
+        <select class="custom-select select-mood"  [(ngModel)]="mood">
+            <!--<option selected>Choose...</option>-->
+            <option *ngFor="let option of moodOptions" [ngValue]="option">{{option}}</option>
+        </select>
         <div class="input-info">Title</div>
         <input class="input-textarea form-control"  [(ngModel)]="title" placeholder="The title of story..."  type="text">
         <div class="input-info">Story</div>
-        <input class="input-textarea form-control"  [(ngModel)]="content" placeholder="Tell us more..."  type="text">
-        <div class="input-info">Photo</div>
+        <textarea class="input-textarea form-control" rows="5" [(ngModel)]="content" placeholder="Tell more..."  type="text"></textarea>
+        <!--<div class="input-info">Photo</div>-->
 
         <button class="btn btn-primary btn-submit">Send</button>
     </div>

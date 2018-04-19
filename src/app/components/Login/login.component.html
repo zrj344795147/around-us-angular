@@ -1,0 +1,11 @@
+<div class="bg">
+    <button class='btn btn-dark' (click)="goToSignUp()" >Go To Sign Up</button>
+    <div class="card login-card " style="background-color:rgba(255,255,255,0.4);">
+        <input class="form-control" id="username" [(ngModel)]="username" placeholder="Email"  type="text">
+        <input class="form-control" id="password" [(ngModel)]="password" placeholder="Password"  type="password">
+        <button class='btn btn-primary btn-send' (click)="clickLogin()" >Login</button>
+
+        <div [hidden]="info == ''"  class='info alert alert-danger'>{{info}}</div>
+    </div>
+</div>
+
