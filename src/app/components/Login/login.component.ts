@@ -36,8 +36,12 @@ export class LoginComponent implements OnInit {
 
     }
 
-    goToSignUp() {
+    goToSignup() {
         this.router.navigateByUrl('signup');
+    }
+
+    goToHome() {
+        this.router.navigateByUrl('home');
     }
 
     clickLogin() {
@@ -57,7 +61,7 @@ export class LoginComponent implements OnInit {
             .catch(err => {
                 if (err.message === 'User is not confirmed.') {
                     this.accountService.resendComfirmaion(this.username)
-                    this.info = 'User is not confirmed. A new confirm email sent.';
+                    this.info = 'User is not confirmed. A new confirm username sent.';
                     return;
                 }
                 console.log(err);

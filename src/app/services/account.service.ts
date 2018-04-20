@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPool} from 'amazon-cognito-identity-js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+// Tools
+import * as jwt_decode from 'jwt-decode';
 
 const poolData = {
     UserPoolId: 'us-east-1_nVg0EhICY',
@@ -69,26 +70,27 @@ export class AccountService {
         });
     }
 
-    signUp(username, password, nickname) {
+    signUp(username, password, name) {
         console.log('AccountService.signUp');
 
         return new Promise((resolve, reject) => {
             const userPool = new CognitoUserPool(poolData);
             const attributeList = [];
             const attributeEmail = new CognitoUserAttribute({
-                Name : 'email',
+                Name : 'username',
                 Value : username
             });
             attributeList.push(attributeEmail);
-            const attributeNickName = new CognitoUserAttribute({
-                Name : 'nickname',
-                Value : nickname
+            const attributeName = new CognitoUserAttribute({
+                Name : 'name',
+                Value : name
             });
-            attributeList.push(attributeNickName);
+            attributeList.push(attributeName);
             userPool.signUp(username, password, attributeList, null, (err, res) => {
                 if (err) {
                     console.log(err);
                     reject(err);
+                    return;
                 }
                 this.user = res.user;
                 console.log('user name is ' + this.user.getUsername());
@@ -117,19 +119,16 @@ export class AccountService {
 
     getUserName() {
         return new Promise((resolve, reject) => {
-            console.log('AccountService.getUserName');
-
-            const cognitoUser = this.userPool.getCurrentUser();
-
-            cognitoUser.getUserAttributes(function(err, result) {
+            this.userPool.getCurrentUser().getSession((err, session) => {
                 if (err) {
-                    console.log(err);
                     reject(err);
+                    return;
                 }
-                // for (i = 0; i < result.length; i++) {
-                //     console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
-                // }
-                resolve(result['username']);
+                // console.log('getSession: ' + JSON.stringify(session));
+
+                let decoded = jwt_decode(session.idToken.jwtToken);
+                // console.log('Decoded: ' + decoded);
+                resolve(decoded.name);
             });
         });
     }
@@ -143,7 +142,7 @@ export class AccountService {
                     reject(err);
                     return;
                 }
-                console.log('getSession: ' + session.idToken.jwtToken);
+                console.log('IdToken: ' + session.idToken.jwtToken);
                 resolve(session.idToken.jwtToken);
             });
         });

@@ -12,19 +12,19 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
-    username: String;
+    email: String;
     password: String;
     passwordConfirm: String;
-    nickname: String;
+    name: String;
     info: String;
     constructor(
         private accountService: AccountService,
         private router: Router,
     ) {
-        this.username = '';
+        this.email = '';
         this.password = '';
         this.passwordConfirm = '';
-        this.nickname = '';
+        this.name = '';
         this.info = '';
 
     }
@@ -42,7 +42,11 @@ export class SignupComponent implements OnInit {
     }
 
     goToLogin() {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('login');
+    }
+
+    goToHome() {
+        this.router.navigateByUrl('home');
     }
 
     clickSignup() {
@@ -50,30 +54,30 @@ export class SignupComponent implements OnInit {
         console.log('Ready to signup');
 
         // Check empty
-        if (this.username === '' || this.password === '' || this.passwordConfirm === '' || this.nickname === '' ) {
-            this.info = 'Entry cannot be empty!';
+        if (this.email === '' || this.password === '' || this.passwordConfirm === '' || this.name === '' ) {
+            this.info = 'Entry cannot be empty';
             return;
         }
         // Check username
         // if (validator.(this.username)) {
-        //     this.info = 'Username must be valid email address';
+        //     this.info = 'Username must be valid username address';
         //     return;
         // }
         // Check password
         if (this.password.length < 6) {
-            this.info = 'Password too short!';
+            this.info = 'Password too short';
             return;
         }
         if (this.password !== this.passwordConfirm) {
-            this.info = 'Password and passwordConfirm are different!';
+            this.info = 'Password and passwordConfirm are different';
             return;
         }
 
-        this.accountService.signUp(this.username, this.password, this.nickname)
+        this.accountService.signUp(this.email, this.password, this.name)
             .then(res => {
                 console.log('Signup Successfully. Please Verificate ');
                 this.router.navigateByUrl('login');
-                alert('Confirmation email is sent. Please confirm');
+                alert('Confirmation username is sent. Please confirm');
             })
             .catch(err => {
                 this.info = err.message;

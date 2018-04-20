@@ -1,12 +1,36 @@
-<div class="bg">
-    <button class='btn btn-dark' (click)="goToLogin()" >Go To Login</button>
-    <div class="card login-card" style="background-color:rgba(255,255,255,0.4);">
-        <input class="form-control" id="newUsername" [(ngModel)]="username" placeholder="Email"  type="text">
-        <input class="form-control" id="newPassword" [(ngModel)]="password" placeholder="Password"  type="password">
-        <input class="form-control" id="passwordComfirm" [(ngModel)]="passwordConfirm" placeholder="Confirm Password"  type="password">
-        <input class="form-control" id="newNickname" [(ngModel)]="nickname" placeholder="Nickname"  type="text">
-        <button class='btn btn-primary' (click)="clickSignup()" >Signup</button>
+<div class="view">
+    <div class="header">
+        <div class="header-left">
+            <div class="header-title" (click)="goToHome()">Around Us</div>
+        </div>
 
-        <div [hidden]="info == ''"  class='info alert alert-danger'>{{info}}</div>
+        <div  class="header-right">
+            <div class="header-button" (click)="goToLogin()">LOG IN</div>
+            <div class="header-button" (click)="goToHome()">HOME</div>
+        </div>
     </div>
+    <div class="main">
+        <div class="signup-container">
+            <div class="signup">
+                <div class="sign-title">REGISTER</div>
+                <div class="post-form">
+                    <div class="input-info "> Email *</div>
+                    <input class="form-control input-textarea" [(ngModel)]="email" placeholder="Email Address" type="text">
+                    <div class="input-info "> Password *</div>
+                    <input class="form-control input-textarea" [(ngModel)]="password" placeholder="Password"  type="password">
+                    <div class="input-info "> Confirm Password *</div>
+                    <input class="form-control input-textarea" [(ngModel)]="passwordConfirm" placeholder="Repeat Password"  type="password">
+                    <div class="input-info "> Name *</div>
+                    <input class="form-control input-textarea" [(ngModel)]="name" placeholder="User Name" type="text">
+                    <div class="btn-line">
+                        <button class='btn btn-primary btn-submit' (click)="clickSignup()" >Submit</button>
+                    </div>
+
+                    <div [hidden]="info == ''"  class='alert alert-danger'>{{info}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+

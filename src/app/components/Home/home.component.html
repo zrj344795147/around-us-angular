@@ -1,22 +1,31 @@
-<div class="home">
-    <div class="home-header">
-        <div class="home-header-left">
-            <div class="home-header-title">Around Us</div>
+<div class="view">
+    <div class="header">
+        <div class="header-left">
+            <div class="header-title" (click)="goToHome()">Around Us</div>
         </div>
-        <div class="home-header-right">
-            <div class="btn btn-secondary btn-logout">Logout</div>
+        <!--If login already-->
+        <div *ngIf="isLogin == true" class="header-right">
+            <div class="header-welcome">Welcome, {{username}}</div>
+            <div class="header-button" (click)="clickLogout()">LOG OUT</div>
+        </div>
+        <!--If not login-->
+        <div *ngIf="isLogin == false" class="header-right">
+            <div class="header-button" (click)="goToLogin()">LOG IN</div>
+            <div class="header-button" (click)="goToSignup()">REGISTER</div>
         </div>
 
     </div>
-    <div class="home-main">
+    <div class="main">
         <agm-map class="google-map"
                  [mapTypeId]="'roadmap'"
                  [latitude]="centerLat"
                  [longitude]="centerLng"
-                 [minZoom]="13"
+                 [minZoom]="0"
+                 [zoom] = "13"
                  (mapClick)="clickMap($event)"
                  [clickableIcons]="false"
                  [styles]="mapStyle"
+                 [usePanning]="true"
         >
             <div *ngFor="let event of events">
                 <div *ngIf="event.mood == 'happy'">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // Services
 import { EventsService } from '../../services/events.service';
+import { AccountService } from '../../services/account.service';
 // Components
 import { EventDetailComponent } from '../EventDetail/event-detail.component';
 import { EventPostComponent } from '../EventPost/event-post.component';
@@ -19,22 +20,26 @@ import { EventPostComponent } from '../EventPost/event-post.component';
 })
 
 export class HomeComponent implements OnInit {
-    centerLat: number = 40.73082279999999;
-    centerLng: number = -73.99733200000003;
-    events: any;
-    currentEvent: any;
-    mapClicked: boolean;
+    // centerLat: number = 40.73082279999999;
+    // centerLng: number = -73.99733200000003;
+    centerLat: number = 40;
+    centerLng: number = -73;
+    events: any = [];
+    currentEvent: any = null;
+    mapClicked: boolean = false;
     clickedLat: number;
     clickedLng: number;
-    clickedLocation: string;
+    clickedLocation: string = '';
     mapStyle: any;
+    isLogin: boolean = false;
+    username: string = '';
 
     constructor(
         private eventsService: EventsService,
+        private accountService: AccountService,
+        private router: Router
     ) {
-        this.events = [];
-        this.currentEvent = null;
-        this.mapClicked = false;
+        // mapstyle
         this.mapStyle =  [
             {
                 elementType: 'geometry',
@@ -54,15 +59,61 @@ export class HomeComponent implements OnInit {
                 ]
             },
         ];
+
     }
 
     ngOnInit() {
-        this.eventsService.getEvents(this.centerLat, this.centerLng)
+        this.getGeolocation();
+        this.getEvents(this.centerLat, this.centerLng);
+        this.checkSession();
+
+    }
+
+    getGeolocation () {
+        if (!navigator.geolocation) {
+            console.log('Geolocation is not supported by your browser');
+            return;
+        }
+        console.log('Trying to get geolocation');
+        navigator.geolocation.getCurrentPosition(position => {
+            console.log('got geolocation');
+            this.centerLat = position.coords.latitude;
+            this.centerLng = position.coords.longitude;
+            this.getEvents(this.centerLat, this.centerLng);
+        }, err => {
+            console.log(err);
+            });
+    }
+
+    getEvents(lat, lng) {
+        this.eventsService.getEvents(lat, lng)
             .then(events => {
                 this.events = events;
             })
             .catch(err => {
                 console.log(err);
+            });
+
+        this.checkSession();
+    }
+    checkSession() {
+        this.accountService.getSession()
+            .then(session => {
+                console.log('Already login');
+                this.isLogin = true;
+                this.accountService.getUserName()
+                    .then(username => {
+                        this.username = String(username);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.username = '';
+                    });
+            })
+            .catch(err => {
+                console.log('Not login');
+                // console.log(err);
+                this.isLogin = false;
             });
     }
 
@@ -105,6 +156,27 @@ export class HomeComponent implements OnInit {
         this.currentEvent = null;
     }
 
+    goToHome() {
+        this.router.navigateByUrl('home');
+    }
 
+    goToLogin() {
+        this.router.navigateByUrl('login');
+    }
+
+    goToSignup() {
+        this.router.navigateByUrl('signup');
+    }
+
+    clickLogout() {
+        this.accountService.signOut()
+            .then(res => {
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+                window.location.reload();
+            });
+    }
 
 }
