@@ -5,7 +5,7 @@
 
     <div class="eventDetail-title">{{event.title}}</div>
     <div class="eventDetail-writer">{{event.username}}</div>
-    <div class="eventDetail-time">{{event.createdAt}}</div>
+    <div class="eventDetail-time">{{event.createdAtString}}</div>
     <div class="eventDetail-content">{{event.content}}</div>
     <!--<div class="eventDetail-img"></div>-->
     <div class="eventDetail-comments">
@@ -15,7 +15,7 @@
             <li *ngFor="let comment of event.comments">
 
                 <span class="eventDetail-comments-writer">{{comment.username}}</span>
-                <span class="eventDetail-comments-time">{{comment.createdAt}}</span>
+                <span class="eventDetail-comments-time">{{comment.createdAtString}}</span>
                 <div class="eventDetail-comments-content">{{comment.content}}</div>
             </li>
         </ul>

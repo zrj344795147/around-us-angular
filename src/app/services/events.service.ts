@@ -169,8 +169,10 @@ export class EventsService {
             let data = {
                 'latitude': latitude,
                 'longitude': longitude,
+                'mood': mood,
                 'title': title,
-                'content': content
+                'content': content,
+                'image': '',
             };
 
             const httpOption = {
@@ -208,7 +210,7 @@ export class EventsService {
             let url = baseUrl + '/comments';
             let data = {
                 'eventId': eventId,
-                'comment': comment,
+                'content': comment,
             };
 
             const httpOption = {
