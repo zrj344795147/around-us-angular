@@ -48,7 +48,7 @@ export class EventPostComponent implements OnInit {
         if (this.title === '') {
             this.info = 'Title cannot be empty';
         }
-        if (this.mood === '') {
+        if (!this.moodOptions.includes(this.mood)) {
             this.info = 'Please choose mood';
         }
         this.eventsService.postEvent(this.latitude, this.longitude, this.mood, this.title, this.content)

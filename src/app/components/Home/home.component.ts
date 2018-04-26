@@ -20,10 +20,10 @@ import { EventPostComponent } from '../EventPost/event-post.component';
 })
 
 export class HomeComponent implements OnInit {
-    // centerLat: number = 40.73082279999999;
-    // centerLng: number = -73.99733200000003;
-    centerLat: number = 40;
-    centerLng: number = -73;
+    centerLat: number = 40.73082279999999;
+    centerLng: number = -73.99733200000003;
+    // centerLat: number = 42;
+    // centerLng: number = -70;
     events: any = [];
     currentEvent: any = null;
     mapClicked: boolean = false;
@@ -150,11 +150,13 @@ export class HomeComponent implements OnInit {
     }
 
     changeCenter($event) {
-        // console.log($event);
-        // this.centerLat = $event.lat;
-        // this.centerLng = $event.lng;
-        // console.log('Center changed, lat: ' + $event.lat + ' lng: ' + $event.lng);
-        // this.getEvents($event, this.centerLng);
+        // console.log('center: ' + $event);
+        if ($event.lat - this.centerLat > 1.5 || $event.lat - this.centerLat < -1.5 || $event.lng - this.centerLng > 1.5 || $event.lng - this.centerLng < -1.5) {
+            this.centerLat = $event.lat;
+            this.centerLng = $event.lng;
+            console.log('Center changed, lat: ' + $event.lat + ' lng: ' + $event.lng);
+            this.getEvents(this.centerLat, this.centerLng);
+        }
     }
 
     clickCloseEventPost() {
