@@ -23,6 +23,7 @@
                  [minZoom]="0"
                  [zoom] = "13"
                  (mapClick)="clickMap($event)"
+                 (centerChange)="changeCenter($event)"
                  [clickableIcons]="false"
                  [styles]="mapStyle"
                  [usePanning]="true"

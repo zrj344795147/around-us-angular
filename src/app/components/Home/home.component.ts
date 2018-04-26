@@ -30,35 +30,35 @@ export class HomeComponent implements OnInit {
     clickedLat: number;
     clickedLng: number;
     clickedLocation: string = '';
-    mapStyle: any;
     isLogin: boolean = false;
     username: string = '';
+    // map style
+    mapStyle: any = [
+        {
+            elementType: 'geometry',
+            stylers: [
+                // {
+                //     hue: '#28f38b'
+                // },
+                // {
+                //     saturation: 15
+                // },
+                {
+                    lightness: 80
+                },
+                {
+                    gamma: 0.5
+                }
+            ]
+        },
+    ];
+
 
     constructor(
         private eventsService: EventsService,
         private accountService: AccountService,
         private router: Router
     ) {
-        // mapstyle
-        this.mapStyle =  [
-            {
-                elementType: 'geometry',
-                stylers: [
-                    // {
-                    //     hue: '#28f38b'
-                    // },
-                    // {
-                    //     saturation: 15
-                    // },
-                    {
-                        lightness: 80
-                    },
-                    {
-                        gamma: 0.5
-                    }
-                ]
-            },
-        ];
 
     }
 
@@ -146,6 +146,14 @@ export class HomeComponent implements OnInit {
                 console.log(err);
                 this.clickedLocation = 'Unknown Location';
             });
+    }
+
+    changeCenter($event) {
+        // console.log($event);
+        // this.centerLat = $event.lat;
+        // this.centerLng = $event.lng;
+        console.log('Center changed, lat: ' + $event.lat + ' lng: ' + $event.lng);
+        // this.getEvents($event, this.centerLng);
     }
 
     clickCloseEventPost() {

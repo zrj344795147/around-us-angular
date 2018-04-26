@@ -41,4 +41,8 @@ export class EventPostComponent implements OnInit {
         this.close.emit(null);
     }
 
+    clickSend() {
+        console.log('Event posted');
+    }
+
 }

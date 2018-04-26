@@ -12,16 +12,13 @@ import { NgIf } from '@angular/common';
 })
 
 export class LoginComponent implements OnInit {
-    username: String;
-    password: String;
-    info: String;
+    username: String = '';
+    password: String = '';
+    info: String = '';
     constructor(
         private accountService: AccountService,
         private router: Router
     ) {
-        this.username = '';
-        this.password = '';
-        this.info = '';
     }
 
     ngOnInit() {

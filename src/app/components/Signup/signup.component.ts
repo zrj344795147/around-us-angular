@@ -12,21 +12,15 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
-    email: String;
-    password: String;
-    passwordConfirm: String;
-    name: String;
-    info: String;
+    email: String = '';
+    password: String = '';
+    passwordConfirm: String = '';
+    name: String = '';
+    info: String = '';
     constructor(
         private accountService: AccountService,
         private router: Router,
     ) {
-        this.email = '';
-        this.password = '';
-        this.passwordConfirm = '';
-        this.name = '';
-        this.info = '';
-
     }
 
     ngOnInit() {
