@@ -17,6 +17,7 @@
         <div class="btn-line">
             <button class="btn btn-primary btn-submit"  (click)="clickSend()">Send</button>
         </div>
+        <div [hidden]="info === ''"  class='alert alert-danger'>{{info}}</div>
 
     </div>
     <!--<button (click)="clickClose()">Close</button>-->

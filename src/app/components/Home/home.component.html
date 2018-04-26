@@ -29,7 +29,7 @@
                  [usePanning]="true"
         >
             <div *ngFor="let event of events">
-                <div *ngIf="event.mood == 'happy'">
+                <div *ngIf="event.mood == 'Happy'">
                     <agm-marker
                             [latitude]="event.latitude"
                             [longitude]="event.longitude"
@@ -44,7 +44,7 @@
                             (markerClick)= "clickMarker(event.id)"
                     ></agm-marker>
                 </div>
-                <div *ngIf="event.mood == 'sad'">
+                <div *ngIf="event.mood == 'Sad'">
                     <agm-marker
                             [latitude]="event.latitude"
                             [longitude]="event.longitude"
@@ -59,7 +59,7 @@
                             (markerClick)= "clickMarker(event.id)"
                     ></agm-marker>
                 </div>
-                <div *ngIf="event.mood == 'angry'">
+                <div *ngIf="event.mood == 'Angry'">
                     <agm-marker
                             [latitude]="event.latitude"
                             [longitude]="event.longitude"
@@ -74,7 +74,7 @@
                             (markerClick)= "clickMarker(event.id)"
                     ></agm-marker>
                 </div>
-                <div *ngIf="event.mood == 'love'">
+                <div *ngIf="event.mood == 'Love'">
                     <agm-marker
                             [latitude]="event.latitude"
                             [longitude]="event.longitude"
@@ -89,7 +89,7 @@
                             (markerClick)= "clickMarker(event.id)"
                     ></agm-marker>
                 </div>
-                <div *ngIf="event.mood == 'heartbroken'">
+                <div *ngIf="event.mood == 'Heartbroken'">
                     <agm-marker
                             [latitude]="event.latitude"
                             [longitude]="event.longitude"
@@ -117,11 +117,11 @@
         </agm-map>
 
         <div *ngIf="currentEvent">
-            <app-event-detail [event]="currentEvent" (close)="clickCloseEventDetail()"></app-event-detail>
+            <app-event-detail [event]="currentEvent" (close)="clickCloseEventDetail()" (commentPosted)="clickMarker($event)" ></app-event-detail>
         </div>
 
         <div *ngIf="mapClicked">
-            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()"></app-event-post>
+            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()" (eventPosted)="getEvents()" ></app-event-post>
         </div>
     </div>
 </div>

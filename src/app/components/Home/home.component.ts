@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit {
     getEvents(lat, lng) {
         this.eventsService.getEvents(lat, lng)
             .then(events => {
+                console.log('events' + events);
                 this.events = events;
             })
             .catch(err => {
@@ -152,7 +153,7 @@ export class HomeComponent implements OnInit {
         // console.log($event);
         // this.centerLat = $event.lat;
         // this.centerLng = $event.lng;
-        console.log('Center changed, lat: ' + $event.lat + ' lng: ' + $event.lng);
+        // console.log('Center changed, lat: ' + $event.lat + ' lng: ' + $event.lng);
         // this.getEvents($event, this.centerLng);
     }
 

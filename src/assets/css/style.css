@@ -272,14 +272,17 @@ agm-marker:hover {
 
 .eventDetail-comments-writer {
     font-weight: 600;
+    font-size:15px;
     color: rgb(17, 17, 17);
 }
 .eventDetail-comments-time {
+    margin-left:10px;
     font-weight: 400;
-    color:  #4b4b4b;
-    font-size: 15px;
+    color: #979797;
+    font-size: 14px;
 }
 .eventDetail-comments-content {
+    font-size: 16px;
     padding-top:5px;
     font-weight: 400;
 }
@@ -333,11 +336,15 @@ agm-marker:hover {
 }
 .input-info {
     padding:5px 0 10px 0 ;
+
 }
 
 .input-textarea {
     margin-bottom:15px;
     resize: none;
+}
+.alert-info {
+
 }
 .signup-container {
     position: absolute;
