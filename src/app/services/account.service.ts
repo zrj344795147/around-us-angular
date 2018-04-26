@@ -77,7 +77,7 @@ export class AccountService {
             const userPool = new CognitoUserPool(poolData);
             const attributeList = [];
             const attributeEmail = new CognitoUserAttribute({
-                Name : 'username',
+                Name : 'email',
                 Value : username
             });
             attributeList.push(attributeEmail);
