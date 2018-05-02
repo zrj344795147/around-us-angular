@@ -29,81 +29,20 @@
                  [usePanning]="true"
         >
             <div *ngFor="let event of events">
-                <div *ngIf="event.mood == 'Happy'">
-                    <agm-marker
-                            [latitude]="event.latitude"
-                            [longitude]="event.longitude"
-                            [iconUrl]="{
-                    url:'assets/images/happyMarker.png',
-                    scaledSize: {
-                        height: 30,
-                        width: 30
-                    }
-                }"
-                            [title]="event.title"
-                            (markerClick)= "clickMarker(event.id)"
-                    ></agm-marker>
-                </div>
-                <div *ngIf="event.mood == 'Sad'">
-                    <agm-marker
-                            [latitude]="event.latitude"
-                            [longitude]="event.longitude"
-                            [iconUrl]="{
-                    url:'assets/images/sadMarker.png',
-                    scaledSize: {
-                        height: 30,
-                        width: 30
-                    }
-                }"
-                            [title]="event.title"
-                            (markerClick)= "clickMarker(event.id)"
-                    ></agm-marker>
-                </div>
-                <div *ngIf="event.mood == 'Angry'">
-                    <agm-marker
-                            [latitude]="event.latitude"
-                            [longitude]="event.longitude"
-                            [iconUrl]="{
-                    url:'assets/images/angryMarker.png',
-                    scaledSize: {
-                        height: 30,
-                        width: 30
-                    }
-                }"
-                            [title]="event.title"
-                            (markerClick)= "clickMarker(event.id)"
-                    ></agm-marker>
-                </div>
-                <div *ngIf="event.mood == 'Love'">
-                    <agm-marker
-                            [latitude]="event.latitude"
-                            [longitude]="event.longitude"
-                            [iconUrl]="{
-                    url:'assets/images/loveMarker.png',
-                    scaledSize: {
-                        height: 30,
-                        width: 30
-                    }
-                }"
-                            [title]="event.title"
-                            (markerClick)= "clickMarker(event.id)"
-                    ></agm-marker>
-                </div>
-                <div *ngIf="event.mood == 'Heartbroken'">
-                    <agm-marker
-                            [latitude]="event.latitude"
-                            [longitude]="event.longitude"
-                            [iconUrl]="{
-                    url:'assets/images/heartbrokenMarker.png',
-                    scaledSize: {
-                        height: 30,
-                        width: 30
-                    }
-                }"
-                            [title]="event.title"
-                            (markerClick)= "clickMarker(event.id)"
-                    ></agm-marker>
-                </div>
+                <agm-marker
+                        [latitude]="event.latitude"
+                        [longitude]="event.longitude"
+                        [iconUrl]="{
+                            url:'assets/images/' + event.mood + 'Marker.png',
+                            scaledSize: {
+                            height: 30,
+                            width: 30
+                            }
+                        }"
+                        [title]="event.title"
+                        (markerClick)= "clickMarker(event.id)"
+                >
+                </agm-marker>
             </div>
             <!--Clicked Marker-->
             <div *ngIf="mapClicked">
@@ -116,10 +55,18 @@
 
         </agm-map>
 
+        <!--Filter-->
+        <div [hidden]="currentEvent || mapClicked" class="events-filter">
+            <div class="form-check form-check-inline" *ngFor="let filter of expressionFilters">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="filter.isSelected">
+                <img [src]="'assets/images/' + filter.expression + 'Marker.png'">
+            </div>
+        </div>
+        <!--EventDetail-->
         <div *ngIf="currentEvent">
             <app-event-detail [event]="currentEvent" (close)="clickCloseEventDetail()" (commentPosted)="clickMarker($event)" ></app-event-detail>
         </div>
-
+        <!--EventPost-->
         <div *ngIf="mapClicked">
             <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()" (eventPosted)="getEvents()" ></app-event-post>
         </div>

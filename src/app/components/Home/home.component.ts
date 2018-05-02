@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
     clickedLocation: string = '';
     isLogin: boolean = false;
     username: string = '';
+    expressions: [string] = ['Happy', 'Sad', 'Angry', 'Love', 'Heartbroken'];
+    expressionFilters: any;
     // map style
     mapStyle: any = [
         {
@@ -59,7 +61,15 @@ export class HomeComponent implements OnInit {
         private accountService: AccountService,
         private router: Router
     ) {
+        this.expressionFilters = [];
+        for (let expression of this.expressions) {
 
+            this.expressionFilters.push({
+                expression: expression,
+                isSelected: true
+            });
+        }
+        console.log(this.expressionFilters);
     }
 
     ngOnInit() {

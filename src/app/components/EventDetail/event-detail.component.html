@@ -7,6 +7,9 @@
     <div class="eventDetail-writer">{{event.username}}</div>
     <div class="eventDetail-time">{{event.createdAtString}}</div>
     <div class="eventDetail-content">{{event.content}}</div>
+    <div class="eventDetail-photo">
+        <img class="img-thumbnail" [src]="'https://s3.amazonaws.com/around-us-photos/test/scenery.jpg'" >
+    </div>
     <!--<div class="eventDetail-img"></div>-->
     <div class="eventDetail-comments">
         <div class="eventDetail-comments-title">Comments</div>

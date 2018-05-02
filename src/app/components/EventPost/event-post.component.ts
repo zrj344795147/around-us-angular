@@ -22,6 +22,7 @@ export class EventPostComponent implements OnInit {
     content: string;
     mood: string;
     moodOptions: [string];
+    photo: string;
     info: string;
 
 
@@ -31,7 +32,7 @@ export class EventPostComponent implements OnInit {
         this.content = '';
         this.mood = 'happy';
         this.info = '';
-
+        this.photo = '';
     }
 
     ngOnInit() {
