@@ -36,15 +36,17 @@ export class EventDetailComponent implements OnInit {
         this.info = '';
         if (this.comment === '') {
             this.info = 'Comment cannot be empty';
+            return;
         }
         this.eventsService.postComment(this.event.id, this.comment)
             .then(res => {
                 console.log('Comment posted');
+                this.comment = '';
                 this.commentPosted.emit(this.event.id);
             })
             .catch(err => {
                 console.log(err);
-                this.info = 'Post failed';
+                this.info = err;
             });
 
     }

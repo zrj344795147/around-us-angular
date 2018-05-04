@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 // Services
 import { EventsService } from '../../services/events.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
     selector: 'app-event-post',
@@ -22,17 +23,19 @@ export class EventPostComponent implements OnInit {
     content: string;
     mood: string;
     moodOptions: [string];
-    photo: string;
-    info: string;
+    image: File;
+    imageName: string = '';
+    info: string = '';
 
 
-    constructor( private eventsService: EventsService) {
+    constructor(
+        private eventsService: EventsService,
+        private accountService: AccountService
+    ) {
         this.moodOptions = ['Happy', 'Sad', 'Angry', 'Love', 'Heartbroken'];
         this.title = '';
         this.content = '';
-        this.mood = 'happy';
-        this.info = '';
-        this.photo = '';
+        this.mood = '';
     }
 
     ngOnInit() {
@@ -44,15 +47,32 @@ export class EventPostComponent implements OnInit {
         this.close.emit(null);
     }
 
-    clickSend() {
+    async clickSend() {
+        await this.accountService.getIdToken()
+            .catch(err => {
+                this.info = 'Please Login';
+                return;
+            });
+
         this.info = '';
         if (this.title === '') {
             this.info = 'Title cannot be empty';
+            return;
         }
         if (!this.moodOptions.includes(this.mood)) {
-            this.info = 'Please choose mood';
+            this.info = 'Please choose expression';
+            return;
         }
-        this.eventsService.postEvent(this.latitude, this.longitude, this.mood, this.title, this.content)
+        if (this.content === '') {
+            this.info = 'Content cannot be empty';
+            return;
+        }
+        let imageFile = null;
+        // if (this.image) {
+        //     console.log(this.image);
+        //     imageFile = this.image.files[0];
+        // }
+        this.eventsService.postEvent(this.latitude, this.longitude, this.mood, this.title, this.content, this.image)
             .then(res => {
                 console.log('Event posted');
                 this.eventPosted.emit(null);
@@ -60,8 +80,12 @@ export class EventPostComponent implements OnInit {
             })
             .catch(err => {
                 console.log(err);
-                this.info = 'Post failed';
+                this.info = err;
             });
+    }
 
+    photoChanged(fileInput) {
+        this.image = fileInput.files[0];
+        this.imageName = this.image.name;
     }
 }

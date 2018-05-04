@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.getGeolocation();
-        this.getEvents(this.centerLat, this.centerLng);
+        this.getEvents();
         this.checkSession();
 
     }
@@ -89,14 +89,14 @@ export class HomeComponent implements OnInit {
             console.log('got geolocation');
             this.centerLat = position.coords.latitude;
             this.centerLng = position.coords.longitude;
-            this.getEvents(this.centerLat, this.centerLng);
+            this.getEvents();
         }, err => {
             console.log(err);
             });
     }
 
-    getEvents(lat, lng) {
-        this.eventsService.getEvents(lat, lng)
+    getEvents() {
+        this.eventsService.getEvents(this.centerLat, this.centerLng)
             .then(events => {
                 console.log('events' + events);
                 this.events = events;
@@ -105,8 +105,17 @@ export class HomeComponent implements OnInit {
                 console.log(err);
             });
 
-        this.checkSession();
     }
+
+    afterPosted() {
+        console.log('After post');
+        setTimeout(() => {
+            console.log('update events');
+            this.getEvents();
+        }, 1000);
+    }
+
+
     checkSession() {
         this.accountService.getSession()
             .then(session => {
@@ -165,7 +174,7 @@ export class HomeComponent implements OnInit {
             this.centerLat = $event.lat;
             this.centerLng = $event.lng;
             console.log('Center changed, lat: ' + $event.lat + ' lng: ' + $event.lng);
-            this.getEvents(this.centerLat, this.centerLng);
+            this.getEvents();
         }
     }
 

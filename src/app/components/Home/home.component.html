@@ -68,7 +68,7 @@
         </div>
         <!--EventPost-->
         <div *ngIf="mapClicked">
-            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()" (eventPosted)="getEvents()" ></app-event-post>
+            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()" (eventPosted)="afterPosted()" ></app-event-post>
         </div>
     </div>
 </div>

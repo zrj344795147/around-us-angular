@@ -1,10 +1,10 @@
 <div class="postEvent">
     <button class="close close-btn" aria-label="Close" (click)="clickClose()">&times;</button>
-    <div class="postEvent-title">Even Post</div>
+    <div class="postEvent-title">Event Post</div>
     <!--<div class="postEvent-location">latitude: {{latitude}}, longitude: {{longitude}}</div>-->
     <div class="postEvent-location">{{location}}</div>
     <div class="post-form">
-        <div class="input-info">Mood</div>
+        <div class="input-info">Expression</div>
         <select class="custom-select select-mood"  [(ngModel)]="mood">
             <!--<option selected>Choose...</option>-->
             <option *ngFor="let option of moodOptions" [ngValue]="option">{{option}}</option>
@@ -15,8 +15,8 @@
         <textarea class="input-textarea form-control" rows="5" [(ngModel)]="content" placeholder="Tell more..."  type="text"></textarea>
         <div class="input-info">Photo</div>
         <div class="custom-file upload-photo">
-            <input type="file" class="custom-file-input" [(ngModel)]="photo">
-            <label class="custom-file-label" >{{photo}}</label>
+            <input type="file" class="custom-file-input" #fileInput (change)="photoChanged(fileInput)">
+            <label class="custom-file-label" >{{imageName}}</label>
         </div>
         <!--<div class="input-info">Photo</div>-->
         <div class="btn-line">

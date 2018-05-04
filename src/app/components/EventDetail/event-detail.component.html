@@ -8,13 +8,13 @@
     <div class="eventDetail-time">{{event.createdAtString}}</div>
     <div class="eventDetail-content">{{event.content}}</div>
     <div class="eventDetail-photo">
-        <img class="img-thumbnail" [src]="'https://s3.amazonaws.com/around-us-photos/test/scenery.jpg'" >
+        <img class="img-thumbnail" [src]="event.image" >
     </div>
     <!--<div class="eventDetail-img"></div>-->
     <div class="eventDetail-comments">
         <div class="eventDetail-comments-title">Comments</div>
         <ul class="comments-display">
-            <li *ngIf="!event.comments && event.comments.length == 0"> No Comment Now</li>
+            <li *ngIf="!event.comments || event.comments.length == 0" class="comments-display-noComment"> No Comment Now</li>
             <li *ngFor="let comment of event.comments">
 
                 <span class="eventDetail-comments-writer">{{comment.username}}</span>
@@ -27,7 +27,7 @@
             <div class="btn-line">
                 <button class="btn btn-primary btn-submit" (click)="clickSend()">Submit</button>
             </div>
-            <div [hidden]="info == ''"  class='alert alert-danger alert-info'>{{info}}</div>
+            <div [hidden]="info === ''"  class='alert alert-danger alert-info'>{{info}}</div>
 
             <!--<button class="btn btn-primary" (click)="clickClose()">Close</button>-->
         </div>

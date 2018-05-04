@@ -157,6 +157,21 @@ agm-marker:hover {
     /*animation*/
 }
 @media only screen and (max-width: 444px) {
+    .events-filter {
+        width:90%;
+        background-color: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        /*max-height: 96%;*/
+        left: 5%;
+        top: 2%;
+        /*shadow*/
+        -webkit-box-shadow: 17px 15px 89px -29px rgba(87,85,87,1);
+        -moz-box-shadow: 17px 15px 89px -29px rgba(87,85,87,1);
+        box-shadow: 17px 15px 89px -29px rgba(87,85,87,1);
+        /*scrollbar*/
+        overflow-y:auto;
+        /*animation*/
+    }
     .currentEvent {
         width: 90%;
         background-color:rgb(255, 255, 255);
@@ -263,9 +278,12 @@ agm-marker:hover {
     border-bottom: 1px solid #E6E6E6;
 
 }
-
-.eventDetail-img{
-
+.eventDetail-photo{
+    /*display: flex;*/
+    /*justify-content: center;*/
+}
+.eventDetail-photo img{
+    /*margin:auto !important;*/
 }
 
 .eventDetail-comments {
@@ -277,6 +295,10 @@ agm-marker:hover {
 }
 .comments-display li {
     padding: 5px 15px 15px 30px
+}
+
+.comments-display-noComment{
+    color: #979797
 }
 .eventDetail-comments-title {
     padding:10px 15px 5px 15px;

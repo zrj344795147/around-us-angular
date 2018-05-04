@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AccountService } from './account.service';
+import * as uuid from 'uuid/v4';
 
 // Base Url
-const baseUrl = 'https://opp7tpg1l4.execute-api.us-east-1.amazonaws.com/dev';
+const baseUrl = 'https://ot44xdmdt1.execute-api.us-east-1.amazonaws.com/dev';
 
 @Injectable()
 export class EventsService {
@@ -47,46 +48,6 @@ export class EventsService {
                 .catch(err => {
                     console.log('GetEvents Error: ' + err);
                 });
-
-            // let events = [
-            //     {
-            //         id: '1',
-            //         latitude: 40.735,
-            //         longitude: -73.999,
-            //         mood: 'happy',
-            //         title: 'title1'
-            //     },
-            //     {
-            //         id: '2',
-            //         latitude: 40.722,
-            //         longitude: -73.987,
-            //         mood: 'sad',
-            //         title: 'title2'
-            //     },
-            //     {
-            //         id: '3',
-            //         latitude: 40.727,
-            //         longitude: -73.988,
-            //         mood: 'angry',
-            //         title: 'title3'
-            //     },
-            //     {
-            //         id: '4',
-            //         latitude: 40.75,
-            //         longitude: -74.000,
-            //         mood: 'love',
-            //         title: 'title3'
-            //     },
-            //     {
-            //         id: '5',
-            //         latitude: 40.74,
-            //         longitude: -73.950,
-            //         mood: 'heartbroken',
-            //         title: 'title3'
-            //     },
-            // ];
-            //
-            // resolve(events);
         });
     }
 
@@ -107,62 +68,47 @@ export class EventsService {
                 .catch(err => {
                     console.log('GetEvents Error: ' + err);
                 });
-
-            // let event = {
-            //     id: '1',
-            //     latitude: 40.750,
-            //     longitude: -73.995,
-            //     title: 'simply a random string? (A string as a series of characters like "cat" or "r2d2" or the empty string "".) What\'s the context?',
-            //     userId: '89757',
-            //     username: 'developer',
-            //     mood: 'happy',
-            //     content: 'Answered May 9, 2014. ... simply a random string? (A string as a series of characters like "cat" or "r2d2" or the empty string "".) What\'s the context? In jest, an arbitrary string is what you get when you put a noob in front of emacs and tell him/her to quit.',
-            //     createdAt: '2018-4-12 12:28:02',
-            //     comments: [{
-            //         id: '1',
-            //         eventId: '1',
-            //         content: 'Da Conner iza liah .u didn\'t go 3 for 3 you lost the third game and won your fourth.\n' +
-            //         'Clickbaiting youtubers these days﻿',
-            //         userId: '10086',
-            //         username: 'Passer-By',
-            //         createdAt: '2018-4-12 16:51:11',
-            //     }, {
-            //         id: '2',
-            //         event_id: '1',
-            //         content: 'Lol, you call it a God Building. My friend discovered those a long time before they got super popular and we just refer to all of them as his buildings.﻿',
-            //         userId: '10000',
-            //         username: 'NoName',
-            //         createdAt: '2018-4-12 16:55:13',
-            //     }],
-            // };
-            //
-            // resolve(event);
         });
     }
 
-    // getComments(eventId) {
-    //     return new Promise((resolve, reject) => {
-    //
-    //     });
-    // }
-
-     postEvent(latitude, longitude, mood, title, content) {
+     postEvent(latitude, longitude, mood, title, content, photo: File) {
         return new Promise( async (resolve, reject) => {
-            if (title === '') {
-                console.log('Title cannot be empty');
-                return;
-            }
-            if (mood === '') {
-                console.log('Mood cannot be empty');
-                return;
-            }
-
             let idToken = await this.accountService.getIdToken()
                 .catch(err => {
+                    reject('Please Login');
                     console.log('Cannot get IdToken: ' + err);
+                    return;
                 });
             if (!idToken) {
+                reject('Please Login');
                 return;
+            }
+            // image
+            let photoUrl = '';
+            const photoTypes = ['jpg', 'gif', 'png', 'jpeg'];
+            if (photo) {
+
+                let photoPath = String(photo);
+                console.log('PhotoName: ' + photoPath);
+                let photoType = photo.name.split('.').pop();
+                if (photoTypes.indexOf(photoType) === -1) {
+                    reject('Photo type is not supported');
+                    return;
+                }
+                let photoName = uuid() + '.' + photoType;
+
+                const S3UrlBase = 'https://s3.amazonaws.com/around-us-photos/';
+                // let formData: FormData = new FormData();
+                // formData.append('', photo, photoName);
+
+                photoUrl = S3UrlBase + photoName;
+
+                await this.http.put(photoUrl, photo, { }).toPromise()
+                    .catch(err => {
+                        console.log('Photo Upload Error: ' + err);
+                        reject('Photo Upload Error');
+                        return;
+                    });
             }
 
             let url = baseUrl + '/events';
@@ -172,7 +118,7 @@ export class EventsService {
                 'mood': mood,
                 'title': title,
                 'content': content,
-                'image': '',
+                'image': photoUrl,
             };
 
             const httpOption = {
@@ -182,28 +128,23 @@ export class EventsService {
                 })
             };
 
-
             this.http.post(url, data, httpOption).toPromise()
                 .then(res => {
                     resolve();
                 })
                 .catch(err => {
                     console.log('postEvent Error: ' + err);
-                    reject(err);
+                    reject('PostEvent Error');
                 });
         });
     }
 
     postComment(eventId, comment) {
         return new Promise(async (resolve, reject) => {
-            if (comment === '') {
-                console.log('Title cannot be empty');
-                return;
-            }
-
             let idToken = await this.accountService.getIdToken()
                 .catch(err => {
                     console.log('Cannot get IdToken: ' + err);
+                    reject('postComment Error');
                     return;
                 });
 
@@ -227,10 +168,8 @@ export class EventsService {
                 })
                 .catch(err => {
                     console.log('postComment Error: ' + err);
-                    reject(err);
+                    reject('postComment Error');
                 });
         });
     }
-
-
 }
