@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 // Services
 import { EventsService } from '../../services/events.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
     selector: 'app-event-detail',
@@ -15,10 +16,13 @@ export class EventDetailComponent implements OnInit {
     @Input() event: any;
     @Output() close: EventEmitter<any> = new EventEmitter();
     @Output() commentPosted: EventEmitter<any> = new EventEmitter();
-    comment: string;
+    comment: string = '';
     info: string = '';
 
-    constructor(private eventsService: EventsService) {
+    constructor(
+        private eventsService: EventsService,
+        private accountService: AccountService
+    ) {
 
     }
 
@@ -32,7 +36,18 @@ export class EventDetailComponent implements OnInit {
         this.close.emit(null);
     }
 
-    clickSend() {
+    async clickSend() {
+        let session = await this.accountService.getSession()
+            .catch(err => {
+                this.info = 'Please Login';
+                return;
+            });
+
+        if (!session) {
+            this.info = 'Please Login';
+            return;
+        }
+
         this.info = '';
         if (this.comment === '') {
             this.info = 'Comment cannot be empty';

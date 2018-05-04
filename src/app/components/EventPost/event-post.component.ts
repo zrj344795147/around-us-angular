@@ -48,11 +48,16 @@ export class EventPostComponent implements OnInit {
     }
 
     async clickSend() {
-        await this.accountService.getIdToken()
+        let session = await this.accountService.getSession()
             .catch(err => {
                 this.info = 'Please Login';
                 return;
             });
+
+        if (!session) {
+            this.info = 'Please Login';
+            return;
+        }
 
         this.info = '';
         if (this.title === '') {

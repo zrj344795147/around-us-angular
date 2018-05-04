@@ -24,12 +24,17 @@ export class AccountService {
 
             this.userPool.getCurrentUser().getSession((err, session) => {
                 if (err) {
+                    console.log(err);
                     reject(err);
                     return;
                 }
                 console.log('getSession: ' + session.idToken.jwtToken);
                 resolve(session);
             });
+                // .catch(err => {
+                //     console.log('getSession Error: ' + err);
+                //     reject(err);
+                // });
         });
     }
 
@@ -139,7 +144,12 @@ export class AccountService {
 
             this.userPool.getCurrentUser().getSession((err, session) => {
                 if (err) {
+                    console.log('getIdToken Error' + err);
                     reject(err);
+                    return;
+                }
+                if (session.idToken.jwtToken === '') {
+                    reject('Failed');
                     return;
                 }
                 console.log('IdToken: ' + session.idToken.jwtToken);

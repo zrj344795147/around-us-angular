@@ -1,16 +1,16 @@
 <div class="view">
     <div class="header">
         <div class="header-left">
-            <div class="header-title" (click)="goToHome()">Around Us</div>
+            <div class="header-title" (click)="goToHome()">AroundUs</div>
         </div>
         <!--If login already-->
         <div *ngIf="isLogin == true" class="header-right">
             <div class="header-welcome">Welcome, {{username}}</div>
-            <div class="header-button" (click)="clickLogout()">LOG OUT</div>
+            <div class="header-button" (click)="clickLogout()">LOGOUT</div>
         </div>
         <!--If not login-->
         <div *ngIf="isLogin == false" class="header-right">
-            <div class="header-button" (click)="goToLogin()">LOG IN</div>
+            <div class="header-button" (click)="goToLogin()">LOGIN</div>
             <div class="header-button" (click)="goToSignup()">REGISTER</div>
         </div>
 

@@ -75,12 +75,12 @@ export class EventsService {
         return new Promise( async (resolve, reject) => {
             let idToken = await this.accountService.getIdToken()
                 .catch(err => {
-                    reject('Please Login');
+                    reject('PostEvent Error');
                     console.log('Cannot get IdToken: ' + err);
                     return;
                 });
             if (!idToken) {
-                reject('Please Login');
+                reject('PostEvent Error');
                 return;
             }
             // image

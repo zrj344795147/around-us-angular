@@ -120,10 +120,10 @@ export class HomeComponent implements OnInit {
         this.accountService.getSession()
             .then(session => {
                 console.log('Already login');
-                this.isLogin = true;
                 this.accountService.getUserName()
                     .then(username => {
                         this.username = String(username);
+                        this.isLogin = true;
                     })
                     .catch(err => {
                         console.log(err);
