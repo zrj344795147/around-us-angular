@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
     }
 
     getEvents() {
-        this.eventsService.getEvents(this.centerLat, this.centerLng)
+        this.eventsService.getEvents(this.centerLat, this.centerLng, this.expressionFilters)
             .then(events => {
                 console.log('events' + events);
                 this.events = events;
@@ -137,6 +137,9 @@ export class HomeComponent implements OnInit {
             });
     }
 
+    filterChanged() {
+        this.getEvents();
+    }
     clickMarker(eventId) {
         // Close EventPost
         this.mapClicked = false;

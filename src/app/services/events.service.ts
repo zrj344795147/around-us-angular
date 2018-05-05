@@ -31,7 +31,7 @@ export class EventsService {
         });
     }
 
-    getEvents(centerLat, centerLng) {
+    getEvents(centerLat, centerLng, filters) {
         return new Promise((resolve, reject) => {
             const httpOption = {
                 headers: new HttpHeaders({
@@ -39,6 +39,19 @@ export class EventsService {
                 })
             };
             let url = baseUrl + '/events?latitude=' + centerLat + '&longitude=' + centerLng;
+            // Filters
+            console.log(filters);
+            let expressions = [];
+            for (let filter of filters) {
+                if (filter.isSelected) {
+                   expressions.push('(' + filter.expression + ')');
+                }
+            }
+            if (expressions.length === 0) {
+                resolve([]);
+                return;
+            }
+            url += '&q=(mood:' + expressions.join('OR') + ')';
             // let url = baseUrl + '/events';
             this.http.get(url, httpOption).toPromise()
                 .then(res => {
