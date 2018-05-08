@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AccountService } from './account.service';
-import * as uuid from 'uuid/v4';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AccountService} from './account.service';
 
 // Base Url
 const baseUrl = 'https://ot44xdmdt1.execute-api.us-east-1.amazonaws.com/dev';
@@ -104,10 +103,11 @@ export class EventsService {
                 return;
             }
             // image
-            let photoUrl = '';
             const photoTypes = ['jpg', 'gif', 'png', 'jpeg'];
-            if (photo) {
-
+            if (!photo) {
+                reject('Please select a photo');
+                return;
+            }
                 let photoPath = String(photo);
                 console.log('PhotoName: ' + photoPath);
                 let photoType = photo.name.split('.').pop();
@@ -115,21 +115,26 @@ export class EventsService {
                     reject('Photo type is not supported');
                     return;
                 }
-                let photoName = uuid() + '.' + photoType;
+            // let photoName = uuid() + '.' + photoType;
 
-                const S3UrlBase = 'https://s3.amazonaws.com/around-us-photos/';
+            const signedUrl = await this.http.post(baseUrl + '/images', {ext: photoType}, {
+                headers: {'Authorization': String(idToken)}
+            }).toPromise().catch(err => {
+                console.log('Create pre signed url Error: ' + err);
+                reject('Create pre signed url Error');
+            }) as string;
+
+            // const S3UrlBase = 'https://s3.amazonaws.com/around-us-photos-buckets/';
                 // let formData: FormData = new FormData();
                 // formData.append('', photo, photoName);
 
-                photoUrl = S3UrlBase + photoName;
+            // photoUrl = S3UrlBase + (await this.accountService.getSub()) + '/' + photoName;
 
-                await this.http.put(photoUrl, photo, { }).toPromise()
-                    .catch(err => {
-                        console.log('Photo Upload Error: ' + err);
-                        reject('Photo Upload Error');
-                        return;
-                    });
-            }
+            await this.http.put(signedUrl, photo).toPromise().catch(err => {
+                console.log('Photo Upload Error: ' + JSON.stringify(err));
+                reject('Photo Upload Error');
+                return;
+            });
 
             let url = baseUrl + '/events';
             let data = {
@@ -138,7 +143,7 @@ export class EventsService {
                 'mood': mood,
                 'title': title,
                 'content': content,
-                'image': photoUrl,
+                'image': signedUrl.split('?')[0],
             };
 
             const httpOption = {
