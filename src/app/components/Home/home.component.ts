@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
     username: string = '';
     expressions: [string] = ['Happy', 'Sad', 'Angry', 'Love', 'Heartbroken'];
     expressionFilters: any;
+    isTranslated: boolean = false;
     // map style
     mapStyle: any = [
         {
@@ -96,7 +97,7 @@ export class HomeComponent implements OnInit {
     }
 
     getEvents() {
-        this.eventsService.getEvents(this.centerLat, this.centerLng, this.expressionFilters)
+        this.eventsService.getEvents(this.centerLat, this.centerLng, this.expressionFilters, this.isTranslated)
             .then(events => {
                 console.log('events' + events);
                 this.events = events;
@@ -140,11 +141,14 @@ export class HomeComponent implements OnInit {
     filterChanged() {
         this.getEvents();
     }
+    isTranslatedChanged() {
+        this.getEvents();
+    }
     clickMarker(eventId) {
         // Close EventPost
         this.mapClicked = false;
 
-        this.eventsService.getEvent(eventId)
+        this.eventsService.getEvent(eventId, this.isTranslated)
             .then(event => {
                 console.log(event);
                 this.currentEvent = event;

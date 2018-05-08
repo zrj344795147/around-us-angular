@@ -31,7 +31,7 @@ export class EventsService {
         });
     }
 
-    getEvents(centerLat, centerLng, filters) {
+    getEvents(centerLat, centerLng, filters, isTranslated) {
         return new Promise((resolve, reject) => {
             const httpOption = {
                 headers: new HttpHeaders({
@@ -52,6 +52,10 @@ export class EventsService {
                 return;
             }
             url += '&q=(mood:' + expressions.join('OR') + ')';
+            // Translation
+            if (isTranslated) {
+                url += '&translate=true';
+            }
             // let url = baseUrl + '/events';
             this.http.get(url, httpOption).toPromise()
                 .then(res => {
@@ -64,7 +68,7 @@ export class EventsService {
         });
     }
 
-    getEvent(eventId) {
+    getEvent(eventId, isTranslated) {
         return new Promise((resolve, reject) => {
             const httpOption = {
                 headers: new HttpHeaders({
@@ -72,7 +76,10 @@ export class EventsService {
                 })
             };
             let url = baseUrl + '/events/' + eventId;
-            // let url = baseUrl + '/events';
+            // Translation
+            if (isTranslated) {
+                url += '?translate=true';
+            }
             this.http.get(url, httpOption).toPromise()
                 .then(res => {
                     console.log(res);

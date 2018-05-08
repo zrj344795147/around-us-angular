@@ -63,17 +63,27 @@
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox"  >
+                <input class="form-check-input" type="checkbox"  [(ngModel)]="isTranslated" (change)="isTranslatedChanged()">
                 <span>Translation</span>
             </div>
         </div>
         <!--EventDetail-->
         <div *ngIf="currentEvent">
-            <app-event-detail [event]="currentEvent" (close)="clickCloseEventDetail()" (commentPosted)="clickMarker($event)" ></app-event-detail>
+            <app-event-detail
+                    [event]="currentEvent"
+                    (close)="clickCloseEventDetail()"
+                    (commentPosted)="clickMarker($event)" >
+            </app-event-detail>
         </div>
         <!--EventPost-->
         <div *ngIf="mapClicked">
-            <app-event-post [latitude]="clickedLat" [longitude]="clickedLng"  [location]="clickedLocation" (close)="clickCloseEventPost()" (eventPosted)="afterPosted()" ></app-event-post>
+            <app-event-post
+                    [latitude]="clickedLat"
+                    [longitude]="clickedLng"
+                    [location]="clickedLocation"
+                    (close)="clickCloseEventPost()"
+                    (eventPosted)="afterPosted()" >
+            </app-event-post>
         </div>
     </div>
 </div>
