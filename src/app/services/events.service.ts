@@ -110,7 +110,7 @@ export class EventsService {
             }
                 let photoPath = String(photo);
                 console.log('PhotoName: ' + photoPath);
-                let photoType = photo.name.split('.').pop();
+                let photoType = photo.name.split('.').pop().toLowerCase();
                 if (photoTypes.indexOf(photoType) === -1) {
                     reject('Photo type is not supported');
                     return;

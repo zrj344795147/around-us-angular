@@ -232,12 +232,14 @@ agm-marker:hover {
 }
 .close-line {
     background-color:#2196f3;
-    padding: 15px 15px 0 15px;
+    display: flex !important;
 }
 
 .close-btn {
-    height:0 !important;
-    display: inline-block;
+    margin-left:auto !important;
+    /*height:0 !important;*/
+    background-color: #2196f3;
+
     margin-right: 5px;
     font-size: 30px !important;
     color: #ededed !important;
