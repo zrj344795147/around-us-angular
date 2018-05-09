@@ -176,7 +176,8 @@ export class HomeComponent implements OnInit {
     }
 
     changeCenter($event) {
-        // console.log('center: ' + $event);
+        // console.log('center: ' + $event.lat);
+
         if ($event.lat - this.centerLat > 1.5 || $event.lat - this.centerLat < -1.5 || $event.lng - this.centerLng > 1.5 || $event.lng - this.centerLng < -1.5) {
             this.centerLat = $event.lat;
             this.centerLng = $event.lng;

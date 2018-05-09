@@ -57,6 +57,7 @@ export class EventDetailComponent implements OnInit {
             .then(res => {
                 console.log('Comment posted');
                 this.comment = '';
+                this.info = '';
                 this.commentPosted.emit(this.event.id);
             })
             .catch(err => {
