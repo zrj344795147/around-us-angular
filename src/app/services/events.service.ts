@@ -104,10 +104,11 @@ export class EventsService {
             }
             // image
             const photoTypes = ['jpg', 'gif', 'png', 'jpeg'];
-            if (!photo) {
-                reject('Please select a photo');
-                return;
-            }
+            let signedUrl = '';
+            if (photo) {
+                // reject('Please select a photo');
+                // return;
+
                 let photoPath = String(photo);
                 console.log('PhotoName: ' + photoPath);
                 let photoType = photo.name.split('.').pop().toLowerCase();
@@ -117,12 +118,12 @@ export class EventsService {
                 }
             // let photoName = uuid() + '.' + photoType;
 
-            const signedUrl = await this.http.post(baseUrl + '/images', {ext: photoType}, {
-                headers: {'Authorization': String(idToken)}
-            }).toPromise().catch(err => {
-                console.log('Create pre signed url Error: ' + err);
-                reject('Create pre signed url Error');
-            }) as string;
+                signedUrl = await this.http.post(baseUrl + '/images', {ext: photoType}, {
+                    headers: {'Authorization': String(idToken)}
+                }).toPromise().catch(err => {
+                    console.log('Create pre signed url Error: ' + err);
+                    reject('Create pre signed url Error');
+                }) as string;
 
             // const S3UrlBase = 'https://s3.amazonaws.com/around-us-photos-buckets/';
                 // let formData: FormData = new FormData();
@@ -130,12 +131,12 @@ export class EventsService {
 
             // photoUrl = S3UrlBase + (await this.accountService.getSub()) + '/' + photoName;
 
-            await this.http.put(signedUrl, photo).toPromise().catch(err => {
-                console.log('Photo Upload Error: ' + JSON.stringify(err));
-                reject('Photo Upload Error');
-                return;
-            });
-
+                await this.http.put(signedUrl, photo).toPromise().catch(err => {
+                    console.log('Photo Upload Error: ' + JSON.stringify(err));
+                    reject('Photo Upload Error');
+                    return;
+                });
+            }
             let url = baseUrl + '/events';
             let data = {
                 'latitude': latitude,
@@ -143,9 +144,10 @@ export class EventsService {
                 'mood': mood,
                 'title': title,
                 'content': content,
-                'image': signedUrl.split('?')[0],
             };
-
+            if (photo) {
+                data['image'] = signedUrl.split('?')[0];
+            }
             const httpOption = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
@@ -155,7 +157,7 @@ export class EventsService {
 
             this.http.post(url, data, httpOption).toPromise()
                 .then(res => {
-                    resolve();
+                    resolve(res);
                 })
                 .catch(err => {
                     console.log('postEvent Error: ' + err);

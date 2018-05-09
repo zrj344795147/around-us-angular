@@ -28,6 +28,20 @@
                  [styles]="mapStyle"
                  [usePanning]="true"
         >
+            <!--my location-->
+            <!--<agm-marker-->
+                    <!--*ngIf="myLocation !== null"-->
+                    <!--[latitude]="myLocation.latitude"-->
+                    <!--[longitude]="myLocation.longitude"-->
+                    <!--[iconUrl]="{-->
+                            <!--url:'assets/images/MyLocationMarker.png',-->
+                            <!--scaledSize: {-->
+                            <!--height: 30,-->
+                            <!--width: 30-->
+                            <!--}-->
+                        <!--}"-->
+                    <!--[title]="'My Location'"-->
+            <!--&gt;</agm-marker>-->
             <div *ngFor="let event of events">
                 <agm-marker
                         [latitude]="event.latitude"
@@ -71,6 +85,7 @@
         <div *ngIf="currentEvent">
             <app-event-detail
                     [event]="currentEvent"
+                    [isLogin]="isLogin"
                     (close)="clickCloseEventDetail()"
                     (commentPosted)="clickMarker($event)" >
             </app-event-detail>
@@ -81,8 +96,9 @@
                     [latitude]="clickedLat"
                     [longitude]="clickedLng"
                     [location]="clickedLocation"
+                    [isLogin]="isLogin"
                     (close)="clickCloseEventPost()"
-                    (eventPosted)="afterPosted()" >
+                    (eventPosted)="afterPosted($event)" >
             </app-event-post>
         </div>
     </div>

@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     expressions: [string] = ['Happy', 'Sad', 'Angry', 'Love', 'Heartbroken'];
     expressionFilters: any;
     isTranslated: boolean = false;
+    myLocation: any = null;
     // map style
     mapStyle: any = [
         {
@@ -91,6 +92,9 @@ export class HomeComponent implements OnInit {
             this.centerLat = position.coords.latitude;
             this.centerLng = position.coords.longitude;
             this.getEvents();
+            this.myLocation = {};
+            this.myLocation.latitude = position.coords.latitude;
+            this.myLocation.longitude = position.coords.longitude;
         }, err => {
             console.log(err);
             });
@@ -108,11 +112,12 @@ export class HomeComponent implements OnInit {
 
     }
 
-    afterPosted() {
+    afterPosted($event) {
         console.log('After post');
         setTimeout(() => {
             console.log('update events');
             this.getEvents();
+            this.clickMarker($event);
         }, 1000);
     }
 

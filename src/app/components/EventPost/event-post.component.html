@@ -22,7 +22,9 @@
         </div>
         <!--<div class="input-info">Photo</div>-->
         <div class="btn-line">
-            <button class="btn btn-primary btn-submit"  (click)="clickSend()">Send</button>
+            <button *ngIf="isLogin && !isSending" class="btn btn-primary btn-submit"  (click)="clickSend()">Submit</button>
+            <button *ngIf="isLogin && isSending" class="btn btn-primary btn-submit"  disabled>Sending...</button>
+            <button *ngIf="!isLogin" class="btn btn-primary btn-submit"  disabled>Please Login</button>
         </div>
         <div [hidden]="info === ''"  class='alert alert-danger'>{{info}}</div>
 

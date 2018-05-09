@@ -17,6 +17,7 @@ export class EventPostComponent implements OnInit {
     @Input() latitude: number;
     @Input() longitude: number;
     @Input() location: string;
+    @Input() isLogin: boolean;
     @Output() close: EventEmitter<any> = new EventEmitter();
     @Output() eventPosted: EventEmitter<any> = new EventEmitter();
     title: string;
@@ -26,6 +27,7 @@ export class EventPostComponent implements OnInit {
     image: File;
     imageName: string = '';
     info: string = '';
+    isSending: boolean = false;
 
 
     constructor(
@@ -73,17 +75,19 @@ export class EventPostComponent implements OnInit {
             return;
         }
         let imageFile = null;
-        // if (this.image) {
-        //     console.log(this.image);
-        //     imageFile = this.image.files[0];
-        // }
+
+        //
+        this.isSending = true;
         this.eventsService.postEvent(this.latitude, this.longitude, this.mood, this.title, this.content, this.image)
-            .then(res => {
+            .then((res: any) => {
                 console.log('Event posted');
-                this.eventPosted.emit(null);
+                console.log(res);
+                this.isSending = false;
+                this.eventPosted.emit(res.id);
                 this.close.emit(null);
             })
             .catch(err => {
+                this.isSending = false;
                 console.log(err);
                 this.info = err;
             });

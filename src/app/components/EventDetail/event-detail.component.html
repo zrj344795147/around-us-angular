@@ -31,7 +31,9 @@
         <div class="make-comment">
             <textarea class="form-control  input-textarea " rows="3" [(ngModel)]="comment" placeholder="Add a comment..."  type="text"></textarea>
             <div class="btn-line">
-                <button class="btn btn-primary btn-submit" (click)="clickSend()">Submit</button>
+                <button *ngIf="isLogin && !isSending" class="btn btn-primary btn-submit" (click)="clickSend()">Submit</button>
+                <button *ngIf="isLogin && isSending" class="btn btn-primary btn-submit"  disabled>Sending...</button>
+                <button *ngIf="!isLogin" class="btn btn-primary btn-submit"  disabled>Please Login</button>
             </div>
             <div [hidden]="info === ''"  class='alert alert-danger alert-info'>{{info}}</div>
 
