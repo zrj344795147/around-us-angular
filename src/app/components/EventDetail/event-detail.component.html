@@ -7,8 +7,11 @@
     <div class="eventDetail-writer">{{event.username}}</div>
     <div class="eventDetail-time">{{event.createdAtString}}</div>
     <div class="eventDetail-content">{{event.content}}</div>
-    <div class="eventDetail-photo">
+    <div *ngIf="event.image && event.image !== null" class="eventDetail-photo">
         <img class="img-thumbnail" [src]="event.image" >
+    </div>
+    <div class="eventDetail-labels" *ngIf="event.labels" >
+        <span *ngFor="let label of event.labels">{{label}}</span>
     </div>
     <!--<div class="eventDetail-img"></div>-->
     <div class="eventDetail-comments">
